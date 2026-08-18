@@ -3,209 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boutique - Sacs & Chaussures | Élégance au Burkina</title>
-  <meta name="description" content="Découvrez notre sélection exclusive de sacs et chaussures. Qualité, style et commande simple via WhatsApp.">
-  <link rel="stylesheet" href="/css/style.css">
+  <title>Élégance & Style — Boutique en Ligne</title>
+  
+  <!-- Fonts Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- HEADER PROFESSIONNEL -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <!-- Zone Logo / Nom Modifiable -->
-      <a href="/" class="brand">
-        <span class="brand-name">MA BOUTIQUE</span>
-      </a>
-
-      <!-- Navigation Desktop + Mobile Toggle -->
-      <nav class="main-nav" id="mainNav">
-        <a href="/" class="active">Accueil</a>
-        <a href="/produits.html">Catalogue</a>
-        <a href="/apropos.html">À propos</a>
-        <a href="/contact.html">Contact</a>
-        <!-- Bouton WA visible dans le menu mobile pour accès rapide -->
-        <a href="https://wa.me/22600000000" class="nav-wa-mobile">WhatsApp</a>
-      </nav>
-
-      <div class="header-actions">
-        <a href="https://wa.me/22600000000" class="btn btn-whatsapp btn-sm header-wa-desktop" aria-label="Commander sur WhatsApp">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <span>WhatsApp</span>
-        </a>
-        <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mainNav">
-          <svg class="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-    </div>
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">Maison Élégance</a>
+    <a href="https://wa.me/22600000000?text=Bonjour,%20je%20souhaite%20des%20informations" class="nav-whatsapp-btn" target="_blank">
+      WhatsApp
+    </a>
   </header>
 
-  <main>
-    <!-- HERO SECTION MODE -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <span class="hero-tag">Nouvelle Collection</span>
-          <h1>Votre élégance commence ici</h1>
-          <p class="hero-text">Découvrez nos sacs et chaussures sélectionnés pour accompagner votre style au quotidien. Qualité premium, disponible immédiatement à Ouagadougou.</p>
-          <div class="hero-actions">
-            <a href="/produits.html" class="btn btn-primary">Découvrir la collection</a>
-            <a href="https://wa.me/22600000000?text=Bonjour%2C%20je%20souhaite%20voir%20vos%20disponibilit%C3%A9s." class="btn btn-outline">Commander sur WhatsApp</a>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <!-- Placeholder SVG élégant en attendant les vraies photos -->
-          <div class="hero-image-wrapper">
-            <svg viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder collection mode">
-              <rect width="600" height="700" fill="#dbeafe"/>
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="24" fill="#2563eb">Photo Collection</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- Hero Principal -->
+  <section class="hero">
+    <h1>Votre élégance commence ici</h1>
+    <p>Sacs raffinés, chaussures de tendance et accessoires de mode sélectionnés pour vous au Burkina Faso.</p>
+    <div class="hero-buttons">
+      <a href="produits.html" class="btn-primary">Découvrir le catalogue</a>
+      <a href="https://wa.me/22600000000?text=Bonjour,%20je%20souhaite%20commander" class="btn-whatsapp" target="_blank">Commander sur WhatsApp</a>
+    </div>
+  </section>
 
-    <!-- CATÉGORIES VISUELLES -->
-    <section class="section categories-section">
-      <div class="container">
-        <h2 class="section-title">Nos Univers</h2>
-        <div class="category-grid">
-          <a href="/produits.html?cat=sacs" class="category-card">
-            <div class="category-img">
-              <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#eff6ff"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="20" fill="#3b82f6">Sacs</text></svg>
-            </div>
-            <div class="category-overlay"><span>Sacs</span></div>
-          </a>
-          <a href="/produits.html?cat=chaussures" class="category-card">
-            <div class="category-img">
-              <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#eff6ff"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="20" fill="#3b82f6">Chaussures</text></svg>
-            </div>
-            <div class="category-overlay"><span>Chaussures</span></div>
-          </a>
+  <!-- Catégories -->
+  <section>
+    <h2 class="section-title">Nos Catégories</h2>
+    <div class="categories-grid">
+      <a href="produits.html?cat=sacs" class="category-card">
+        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80" alt="Sacs de luxe">
+        <h3>Sacs & Pochettes</h3>
+      </a>
+      <a href="produits.html?cat=chaussures" class="category-card">
+        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80" alt="Chaussures tendance">
+        <h3>Chaussures</h3>
+      </a>
+    </div>
+  </section>
+
+  <!-- Produits Mis en Avant (Mocks Statiques pour Validation Design) -->
+  <section>
+    <h2 class="section-title">Sélection du Moment</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=400&q=80" alt="Sac en cuir">
+        <div class="product-info">
+          <div class="product-title">Sac à main Cuir Royal</div>
+          <div class="product-price">25 000 FCFA</div>
+          <a href="produit.html?id=1" class="product-btn">Voir détails</a>
         </div>
       </div>
-    </section>
-
-    <!-- PRODUITS MIS EN AVANT (Statique Étape 1) -->
-    <section class="section featured-section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Coups de Cœur</h2>
-          <a href="/produits.html" class="link-arrow">Voir tout →</a>
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1560343776-97e7d202ff0e?auto=format&fit=crop&w=400&q=80" alt="Chaussures à talons">
+        <div class="product-info">
+          <div class="product-title">Escarpins Élégance Bleu</div>
+          <div class="product-price">18 000 FCFA</div>
+          <a href="produit.html?id=2" class="product-btn">Voir détails</a>
         </div>
-        <div class="product-grid">
-          <!-- Carte Produit Statique Moderne -->
-          <article class="product-card">
-            <div class="product-image">
-              <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="18" fill="#9ca3af">Photo Produit</text></svg>
-              <span class="badge-stock badge-available">Disponible</span>
-            </div>
-            <div class="product-card-body">
-              <h3 class="product-name">Sac Bandoulière Cuir</h3>
-              <div class="product-meta">
-                <span class="product-price">15 000 FCFA</span>
-              </div>
-              <a href="/produit.html?id=demo" class="btn btn-secondary btn-block">Voir le produit</a>
-            </div>
-          </article>
-          
-          <article class="product-card">
-            <div class="product-image">
-              <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="18" fill="#9ca3af">Photo Produit</text></svg>
-              <span class="badge-stock badge-last">Dernier article</span>
-            </div>
-            <div class="product-card-body">
-              <h3 class="product-name">Escarpins Bleus</h3>
-              <div class="product-meta">
-                <span class="product-price">22 000 FCFA</span>
-              </div>
-              <a href="/produit.html?id=demo" class="btn btn-secondary btn-block">Voir le produit</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION CONFIANCE -->
-    <section class="section trust-section">
-      <div class="container">
-        <h2 class="section-title center">Pourquoi nous choisir ?</h2>
-        <div class="trust-grid">
-          <div class="trust-item">
-            <div class="trust-icon">✨</div>
-            <h3>Sélection soignée</h3>
-            <p>Chaque pièce est choisie pour sa qualité et son style unique.</p>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">💬</div>
-            <h3>Commande simple</h3>
-            <p>Réservez directement via WhatsApp, sans formulaire compliqué.</p>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">🤝</div>
-            <h3>Service proche</h3>
-            <p>Une relation humaine et réactive, basée à Ouagadougou.</p>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">📦</div>
-            <h3>Stock réel</h3>
-            <p>Disponibilité indiquée en temps réel, pas de mauvaises surprises.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT RAPIDE CTA -->
-    <section class="section cta-section">
-      <div class="container cta-box">
-        <h2>Une question ? Un besoin spécifique ?</h2>
-        <p>Contactez-nous directement pour un conseil personnalisé ou une réservation.</p>
-        <a href="https://wa.me/22600000000" class="btn btn-whatsapp btn-lg">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Discuter sur WhatsApp
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER PROFESSIONNEL -->
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <span class="brand-name">MA BOUTIQUE</span>
-        <p>Votre référence mode à Ouagadougou.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Navigation</h4>
-        <a href="/">Accueil</a>
-        <a href="/produits.html">Catalogue</a>
-        <a href="/apropos.html">À propos</a>
-      </div>
-      <div class="footer-contact">
-        <h4>Contact</h4>
-        <a href="https://wa.me/22600000000">WhatsApp</a>
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
       </div>
     </div>
-    <div class="footer-bottom container">
-      <p>&copy; 2026 MA BOUTIQUE. Tous droits réservés.</p>
+  </section>
+
+  <!-- Section Confiance -->
+  <section class="trust-section">
+    <h2 class="section-title" style="margin-top: 0;">Pourquoi nous choisir ?</h2>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <h4>Articles de Qualité</h4>
+        <p>Chaque produit est sélectionné avec le plus grand soin.</p>
+      </div>
+      <div class="trust-item">
+        <h4>Commande WhatsApp Facile</h4>
+        <p>Un dialogue direct et rapide pour valider vos choix.</p>
+      </div>
+      <div class="trust-item">
+        <h4>Service Proche de Vous</h4>
+        <p>Disponibilité et réactivité garanties au Burkina Faso.</p>
+      </div>
     </div>
-  </footer>
+  </section>
 
-  <script>
-    // Toggle menu mobile avec gestion icône et aria
-    const toggle = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('mainNav');
-    const iconMenu = toggle.querySelector('.icon-menu');
-    const iconClose = toggle.querySelector('.icon-close');
-
-    toggle.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', isOpen);
-      iconMenu.style.display = isOpen ? 'none' : 'block';
-      iconClose.style.display = isOpen ? 'block' : 'none';
-    });
-  </script>
 </body>
 </html>
