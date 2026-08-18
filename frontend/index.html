@@ -1,0 +1,79 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique - Sacs & Chaussures</title>
+  <meta name="description" content="Découvrez notre sélection de sacs et chaussures. Qualité et élégance au Burkina Faso.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">Boutique</a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <nav class="main-nav">
+        <a href="/" class="active">Accueil</a>
+        <a href="/produits.html">Catalogue</a>
+        <a href="/apropos.html">À propos</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Élégance & Qualité</h1>
+        <p>Sacs et chaussures sélectionnés avec soin pour vous.</p>
+        <div style="margin-top: var(--spacing-lg);">
+          <a href="/produits.html" class="btn btn-primary">Voir le catalogue</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products (Placeholder statique pour l'étape 1) -->
+    <section class="container">
+      <h2>Nouveautés</h2>
+      <div class="product-grid">
+        <!-- Les cartes produits seront injectées dynamiquement à l'Étape 2 -->
+        <article class="product-card">
+          <div style="aspect-ratio:1/1;background:var(--gray-100);display:flex;align-items:center;justify-content:center;color:var(--gray-600);">Image</div>
+          <div class="product-card-body">
+            <span class="badge-stock badge-available">Disponible</span>
+            <h3>Nom du produit</h3>
+            <p>15 000 FCFA</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 Boutique. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts (Logique UI uniquement pour l'étape 1) -->
+  <script>
+    // Toggle menu mobile - Pas de dépendance externe
+    document.querySelector('.nav-toggle').addEventListener('click', function() {
+      const nav = document.querySelector('.main-nav');
+      const isOpen = nav.classList.toggle('is-open');
+      this.setAttribute('aria-expanded', isOpen);
+    });
+  </script>
+</body>
+</html>
