@@ -744,3 +744,17 @@ body.nav-locked { overflow: hidden; }
 
   .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
 }
+
+/* ==========================================================================
+   WIDGET WHATSAPP INTELLIGENT — contraste adaptatif
+   ========================================================================== */
+
+.wa-float-badge {
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wa-float-badge-light {
+  background-color: var(--bg-white);
+  color: var(--navy);
+  box-shadow: 0 10px 25px rgba(23, 36, 51, 0.22);
+}
