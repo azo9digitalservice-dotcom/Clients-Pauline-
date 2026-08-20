@@ -19,17 +19,20 @@
     <div class="header-container">
 
       <a href="index.html" class="brand-logo-badge" title="Chez Tantie Pauline — Accueil">
-        <svg class="logo-mark-svg" viewBox="0 0 60 60" aria-hidden="true">
-          <defs>
-            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#2c5c8a" />
-              <stop offset="100%" stop-color="#163a5c" />
-            </linearGradient>
-          </defs>
-          <circle cx="30" cy="30" r="29" fill="url(#logoGrad)" />
-          <text x="30" y="37" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="22" fill="#fff" text-anchor="middle">TP</text>
-          <path d="M13 43 Q30 50 47 43" stroke="#d3a94c" stroke-width="1.4" fill="none" stroke-linecap="round" />
-        </svg>
+        <span class="logo-mark-wrap">
+          <img src="assets/logo/logo-pauline.png" alt="Logo Chez Tantie Pauline" class="logo-real" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <svg class="logo-mark-svg logo-fallback" viewBox="0 0 60 60" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2c5c8a" />
+                <stop offset="100%" stop-color="#163a5c" />
+              </linearGradient>
+            </defs>
+            <circle cx="30" cy="30" r="29" fill="url(#logoGrad)" />
+            <text x="30" y="37" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="22" fill="#fff" text-anchor="middle">TP</text>
+            <path d="M13 43 Q30 50 47 43" stroke="#d3a94c" stroke-width="1.4" fill="none" stroke-linecap="round" />
+          </svg>
+        </span>
         <span class="logo-word">Chez Tantie<br>Pauline</span>
       </a>
 
@@ -78,7 +81,7 @@
         <div class="hero-avatar-wrapper">
           <div class="rotating-ring"></div>
           <div class="avatar-circle">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" alt="Tantie Pauline, fondatrice de Chez Tantie Pauline" class="avatar-img">
+            <img src="assets/profil/pauline.jpg" alt="Tantie Pauline, fondatrice de Chez Tantie Pauline" class="avatar-img">
           </div>
 
           <div class="floating-card floating-card-top">
@@ -145,7 +148,7 @@
       <div class="story-container">
 
         <div class="story-photo-wrapper">
-          <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=800&auto=format&fit=crop" alt="Tantie Pauline dans sa boutique" class="story-photo">
+          <img src="assets/profil/pauline.jpg" alt="Tantie Pauline dans sa boutique" class="story-photo">
           <div class="story-photo-frame"></div>
         </div>
 
@@ -174,21 +177,21 @@
     <section class="marquee-section" aria-label="Aperçus de la boutique">
       <div class="marquee-track">
         <div class="marquee-group">
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=500&auto=format&fit=crop" alt="Sac"></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=500&auto=format&fit=crop" alt="Chaussures"></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=500&auto=format&fit=crop" alt="Tantie Pauline"></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=500&auto=format&fit=crop" alt="Détail d'un sac"></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1560343776-97e7d202ff0e?q=80&w=500&auto=format&fit=crop" alt="Détail d'une chaussure"></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=500&auto=format&fit=crop" alt="Préparation d'une commande"></div>
+          <div class="marquee-item"><img src="assets/produits/produit-01.jpg" alt="Sac"></div>
+          <div class="marquee-item"><img src="assets/produits/produit-02.jpg" alt="Chaussures"></div>
+          <div class="marquee-item"><img src="assets/profil/pauline.jpg" alt="Tantie Pauline"></div>
+          <div class="marquee-item"><img src="assets/produits/produit-03.jpg" alt="Détail d'un sac"></div>
+          <div class="marquee-item"><img src="assets/produits/produit-04.jpg" alt="Détail d'une chaussure"></div>
+          <div class="marquee-item"><img src="assets/coulisses/coulisses-01.jpg" alt="Préparation d'une commande"></div>
         </div>
         <!-- Copie identique accolée pour un défilement sans coupure -->
         <div class="marquee-group" aria-hidden="true">
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=500&auto=format&fit=crop" alt=""></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=500&auto=format&fit=crop" alt=""></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=500&auto=format&fit=crop" alt=""></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=500&auto=format&fit=crop" alt=""></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1560343776-97e7d202ff0e?q=80&w=500&auto=format&fit=crop" alt=""></div>
-          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=500&auto=format&fit=crop" alt=""></div>
+          <div class="marquee-item"><img src="assets/produits/produit-01.jpg" alt=""></div>
+          <div class="marquee-item"><img src="assets/produits/produit-02.jpg" alt=""></div>
+          <div class="marquee-item"><img src="assets/profil/pauline.jpg" alt=""></div>
+          <div class="marquee-item"><img src="assets/produits/produit-03.jpg" alt=""></div>
+          <div class="marquee-item"><img src="assets/produits/produit-04.jpg" alt=""></div>
+          <div class="marquee-item"><img src="assets/coulisses/coulisses-01.jpg" alt=""></div>
         </div>
       </div>
     </section>
@@ -208,19 +211,19 @@
 
         <div class="behind-scenes-grid behind-scenes-grid-4">
           <div class="bs-item bs-item-large">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=900&auto=format&fit=crop" alt="Tantie Pauline">
+            <img src="assets/profil/pauline.jpg" alt="Tantie Pauline">
             <span class="bs-caption">Tantie Pauline</span>
           </div>
           <div class="bs-item">
-            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=700&auto=format&fit=crop" alt="Sélection des articles">
+            <img src="assets/coulisses/coulisses-01.jpg" alt="Sélection des articles">
             <span class="bs-caption">Sélection des articles</span>
           </div>
           <div class="bs-item">
-            <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=700&auto=format&fit=crop" alt="Préparation d'une commande">
+            <img src="assets/coulisses/coulisses-02.jpg" alt="Préparation d'une commande">
             <span class="bs-caption">Préparation d'une commande</span>
           </div>
           <div class="bs-item">
-            <img src="https://images.unsplash.com/photo-1560243563-062bfc001d68?q=80&w=700&auto=format&fit=crop" alt="Présentation d'un produit">
+            <img src="assets/coulisses/coulisses-03.jpg" alt="Présentation d'un produit">
             <span class="bs-caption">Présentation d'un produit</span>
           </div>
         </div>
@@ -244,7 +247,7 @@
         <div class="categories-grid">
           <div class="category-card-full">
             <div class="category-img-box">
-              <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop" alt="Collection de sacs">
+              <img src="assets/produits/produit-01.jpg" alt="Collection de sacs">
             </div>
             <div class="category-info">
               <h3>Sacs</h3>
@@ -255,7 +258,7 @@
 
           <div class="category-card-full">
             <div class="category-img-box">
-              <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=800&auto=format&fit=crop" alt="Collection de chaussures">
+              <img src="assets/produits/produit-02.jpg" alt="Collection de chaussures">
             </div>
             <div class="category-info">
               <h3>Chaussures</h3>
@@ -363,7 +366,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
   </a>
 
-   <!-- ===================== FOOTER ===================== -->
+  <!-- ===================== FOOTER ===================== -->
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-grid">
