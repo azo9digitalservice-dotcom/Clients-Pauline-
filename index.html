@@ -15,17 +15,35 @@
 <body>
 
   <!-- ===================== HEADER ===================== -->
-  <header class="site-header">
+  <header class="site-header" id="siteHeader">
     <div class="header-container">
 
       <a href="index.html" class="brand-logo-badge" title="Chez Tantie Pauline — Accueil">
-        <span class="logo-mark">CTP</span>
+        <svg class="logo-mark-svg" viewBox="0 0 60 60" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2c5c8a" />
+              <stop offset="100%" stop-color="#163a5c" />
+            </linearGradient>
+          </defs>
+          <circle cx="30" cy="30" r="29" fill="url(#logoGrad)" />
+          <text x="30" y="37" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="22" fill="#fff" text-anchor="middle">TP</text>
+          <path d="M13 43 Q30 50 47 43" stroke="#d3a94c" stroke-width="1.4" fill="none" stroke-linecap="round" />
+        </svg>
         <span class="logo-word">Chez Tantie<br>Pauline</span>
       </a>
 
+      <nav class="site-nav-desktop">
+        <a href="index.html" class="nav-link active">Accueil</a>
+        <a href="produits.html" class="nav-link">Collection</a>
+        <a href="apropos.html" class="nav-link">À propos</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
       <div class="header-actions">
-        <a href="https://wa.me/22600000000?text=Bonjour%20Tantie%20Pauline,%20je%20souhaite%20découvrir%20votre%20boutique" class="btn-wa-header" target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
-          <svg class="wa-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a href="https://wa.me/22600000000?text=Bonjour%20Tantie%20Pauline,%20je%20souhaite%20échanger%20avec%20vous" class="header-wa-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="header-wa-text">Écrire à Tantie Pauline</span>
         </a>
 
         <button class="hamburger-btn" id="hamburgerBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navOverlay">
@@ -38,7 +56,7 @@
     </div>
   </header>
 
-  <!-- ===================== MENU OVERLAY ===================== -->
+  <!-- ===================== MENU OVERLAY (mobile) ===================== -->
   <nav class="nav-overlay" id="navOverlay" aria-hidden="true">
     <div class="nav-overlay-pattern"></div>
     <button class="nav-close-btn" id="navCloseBtn" aria-label="Fermer le menu">&times;</button>
@@ -83,6 +101,7 @@
           <p class="hero-subtitle">
             Passionnée par la mode et le commerce, Tantie Pauline sélectionne avec soin des sacs et des chaussures pour celles et ceux qui aiment se sentir bien dans ce qu'ils portent.
           </p>
+          <p class="hero-signature">Des belles choses, choisies avec passion.</p>
           <div class="hero-actions">
             <a href="produits.html" class="btn-primary">Découvrir la collection</a>
             <a href="https://wa.me/22600000000?text=Bonjour%20Tantie%20Pauline,%20je%20souhaite%20échanger%20avec%20vous" class="btn-secondary" target="_blank" rel="noopener">Échanger sur WhatsApp</a>
@@ -139,9 +158,6 @@
           <p class="story-text">
             À travers ses sacs et ses chaussures, Tantie Pauline souhaite offrir une sélection variée, accessible et soigneusement choisie, tout en gardant ce qui compte le plus pour elle : l'échange, la proximité et la confiance.
           </p>
-          <p class="story-text">
-            Ici, pas besoin de chercher compliqué. Vous découvrez un article, vous posez vos questions et vous échangez directement avec Tantie Pauline.
-          </p>
 
           <blockquote class="story-quote">
             <p>« J'aime mon métier et j'aime pouvoir conseiller mes clientes pour qu'elles trouvent quelque chose qui leur plaît vraiment. »</p>
@@ -151,6 +167,29 @@
           <a href="apropos.html" class="link-arrow">Découvrir son parcours &rarr;</a>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ===================== CARROUSEL INFINI ===================== -->
+    <section class="marquee-section" aria-label="Aperçus de la boutique">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=500&auto=format&fit=crop" alt="Sac"></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=500&auto=format&fit=crop" alt="Chaussures"></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=500&auto=format&fit=crop" alt="Tantie Pauline"></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=500&auto=format&fit=crop" alt="Détail d'un sac"></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1560343776-97e7d202ff0e?q=80&w=500&auto=format&fit=crop" alt="Détail d'une chaussure"></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=500&auto=format&fit=crop" alt="Préparation d'une commande"></div>
+        </div>
+        <!-- Copie identique accolée pour un défilement sans coupure -->
+        <div class="marquee-group" aria-hidden="true">
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=500&auto=format&fit=crop" alt=""></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=500&auto=format&fit=crop" alt=""></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=500&auto=format&fit=crop" alt=""></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=500&auto=format&fit=crop" alt=""></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1560343776-97e7d202ff0e?q=80&w=500&auto=format&fit=crop" alt=""></div>
+          <div class="marquee-item"><img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=500&auto=format&fit=crop" alt=""></div>
+        </div>
       </div>
     </section>
 
@@ -181,8 +220,8 @@
             <span class="bs-caption">Préparation d'une commande</span>
           </div>
           <div class="bs-item">
-            <img src="https://images.unsplash.com/photo-1560243563-062bfc001d68?q=80&w=700&auto=format&fit=crop" alt="Présentation des produits">
-            <span class="bs-caption">Présentation des produits</span>
+            <img src="https://images.unsplash.com/photo-1560243563-062bfc001d68?q=80&w=700&auto=format&fit=crop" alt="Présentation d'un produit">
+            <span class="bs-caption">Présentation d'un produit</span>
           </div>
         </div>
 
@@ -200,9 +239,6 @@
         <div class="section-header-center">
           <span class="section-tag"><span class="tag-dash"></span>NOS UNIVERS</span>
           <h2 class="section-title">Des pièces pour chaque moment</h2>
-          <p class="section-lead">
-            Découvrez notre sélection de sacs et de chaussures, pensée pour accompagner vos journées, vos sorties et vos occasions spéciales.
-          </p>
         </div>
 
         <div class="categories-grid">
@@ -229,11 +265,6 @@
           </div>
         </div>
 
-        <div class="categories-footnote">
-          <p>Vous cherchez un modèle ou un style particulier ? Écrivez directement à Tantie Pauline.</p>
-          <a href="https://wa.me/22600000000?text=Bonjour%20Tantie%20Pauline,%20je%20recherche%20un%20modèle%20particulier" class="btn-secondary" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
-        </div>
-
       </div>
     </section>
 
@@ -244,9 +275,6 @@
         <div class="section-header-center">
           <span class="section-tag"><span class="tag-dash"></span>COMMENT COMMANDER ?</span>
           <h2 class="section-title">Votre prochaine pièce commence par un message</h2>
-          <p class="section-lead">
-            Vous avez repéré un article qui vous plaît ? Pas besoin de créer un compte. Écrivez simplement à Tantie Pauline sur WhatsApp pour échanger avec elle.
-          </p>
         </div>
 
         <div class="steps-grid">
@@ -263,13 +291,12 @@
           <div class="step-card">
             <span class="step-number">03</span>
             <h3>Échangez</h3>
-            <p>Posez vos questions et échangez directement avec elle pour votre commande.</p>
+            <p>Posez vos questions et échangez directement avec elle.</p>
           </div>
         </div>
 
         <div class="how-to-order-cta">
           <a href="https://wa.me/22600000000?text=Bonjour%20Tantie%20Pauline,%20je%20souhaite%20passer%20commande" class="btn-primary" target="_blank" rel="noopener">Écrire à Tantie Pauline &rarr;</a>
-          <p class="how-to-order-note">Une question avant de commander ? Vous pouvez également nous écrire simplement pour demander conseil.</p>
         </div>
 
       </div>
@@ -282,47 +309,42 @@
         <div class="section-header-center">
           <span class="section-tag"><span class="tag-dash"></span>POURQUOI CHEZ TANTIE PAULINE</span>
           <h2 class="section-title">Une boutique pensée autour de vous</h2>
-          <p class="section-lead">
-            Chez Tantie Pauline, nous croyons que choisir un sac ou une paire de chaussures ne devrait pas être une expérience compliquée. Il faut pouvoir regarder, demander conseil, poser ses questions et prendre le temps de choisir ce qui nous plaît. C'est cette proximité que nous souhaitons garder au cœur de la boutique.
-          </p>
         </div>
 
         <div class="why-us-grid why-us-grid-numbered">
           <div class="why-card">
             <span class="why-number">01</span>
             <h3>Une sélection faite avec passion</h3>
-            <p>Chaque article présenté dans la boutique est choisi avec attention. Tantie Pauline aime découvrir de nouvelles pièces et proposer une sélection qui correspond à différents styles et différentes occasions.</p>
+            <p>Chaque article présenté dans la boutique est choisi avec attention.</p>
           </div>
           <div class="why-card">
             <span class="why-number">02</span>
             <h3>Un échange vraiment direct</h3>
-            <p>Vous échangez directement avec Tantie Pauline pour poser vos questions, demander conseil ou simplement vous renseigner sur un article.</p>
+            <p>Vous échangez directement avec Tantie Pauline pour poser vos questions ou demander conseil.</p>
           </div>
           <div class="why-card">
             <span class="why-number">03</span>
             <h3>Une relation de confiance</h3>
-            <p>Une petite boutique permet quelque chose de précieux : connaître ses clientes, comprendre leurs goûts et prendre le temps de les accompagner. Chez Tantie Pauline, cette proximité fait partie de l'expérience.</p>
+            <p>Une boutique à taille humaine permet de prendre le temps d'écouter et d'accompagner ses clientes.</p>
           </div>
           <div class="why-card">
             <span class="why-number">04</span>
             <h3>Une boutique qui grandit avec vous</h3>
-            <p>La collection évoluera au fil du temps avec l'arrivée de nouveaux sacs, de nouvelles chaussures et de nouvelles découvertes. Revenez régulièrement pour découvrir les nouveautés.</p>
+            <p>La collection évoluera progressivement avec l'arrivée de nouveaux sacs, chaussures et découvertes.</p>
           </div>
         </div>
-
-        <blockquote class="story-quote why-us-quote">
-          <p>« J'aime mon métier et j'aime pouvoir conseiller mes clientes pour qu'elles trouvent quelque chose qui leur plaît vraiment. »</p>
-          — Tantie Pauline
-        </blockquote>
-
-        <p class="why-us-conclusion">Chez Tantie Pauline, chaque visite commence par une découverte et peut simplement continuer par une conversation.</p>
 
       </div>
     </section>
 
-    <!-- ===================== 08. CTA FINAL ===================== -->
+    <!-- ===================== 08. GRANDE RESPIRATION VISUELLE ===================== -->
+    <section class="breath-section">
+      <p class="breath-quote">« Choisir quelque chose qui nous plaît, c'est aussi se faire plaisir. »</p>
+      <p class="breath-signature">— Chez Tantie Pauline</p>
+    </section>
+
+    <!-- ===================== 09. CTA FINAL ===================== -->
     <section class="cta-section">
-      <div class="cta-pattern"></div>
       <div class="cta-container">
         <span class="cta-tag"><span class="tag-dash light"></span>PARLONS-EN</span>
         <h2 class="cta-title">Une envie, une question, une recherche particulière ?</h2>
@@ -341,13 +363,11 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
   </a>
 
-  <!-- ===================== FOOTER ===================== -->
+   <!-- ===================== FOOTER ===================== -->
   <footer class="site-footer">
-    <div class="footer-pattern"></div>
     <div class="footer-container">
       <div class="footer-grid">
         <div class="footer-brand-col">
-          <div class="footer-logo-badge">CTP</div>
           <p class="footer-brand-name">Chez Tantie Pauline</p>
           <p class="footer-brand-desc">Sacs et chaussures sélectionnés avec soin, commande simple sur WhatsApp.</p>
         </div>
