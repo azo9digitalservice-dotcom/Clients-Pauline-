@@ -1,20 +1,5 @@
 (function () {
 
-  /**
-   * DONNÉES TEMPORAIRES — PLACEHOLDERS
-   * Ce ne sont PAS les vrais produits de Tantie Pauline.
-   * Seront remplacées par les données de Google Sheets via GAS
-   * (fournies par api.js) dans une étape ultérieure.
-   */
-  var PLACEHOLDER_PRODUCTS = [
-    { id: 'SAC-001', nom: 'Sac à main Pauline', prix: 25000, categorie: 'sacs', disponibilite: 'disponible', imagePrincipale: 'assets/produits/produit-01.jpg' },
-    { id: 'SAC-002', nom: 'Sac cabas tissé', prix: 20000, categorie: 'sacs', disponibilite: 'peu_de_stock', imagePrincipale: 'assets/produits/produit-02.jpg' },
-    { id: 'SAC-003', nom: 'Pochette de soirée', prix: 15000, categorie: 'sacs', disponibilite: 'disponible', imagePrincipale: 'assets/produits/produit-03.jpg' },
-    { id: 'CHA-001', nom: 'Escarpins bleu nuit', prix: 18000, categorie: 'chaussures', disponibilite: 'disponible', imagePrincipale: 'assets/produits/produit-04.jpg' },
-    { id: 'CHA-002', nom: 'Sandales tressées', prix: 12000, categorie: 'chaussures', disponibilite: 'rupture', imagePrincipale: 'assets/produits/produit-01.jpg' },
-    { id: 'CHA-003', nom: 'Mocassins élégants', prix: 22000, categorie: 'chaussures', disponibilite: 'disponible', imagePrincipale: 'assets/produits/produit-02.jpg' }
-  ];
-
   var STATUS_LABELS = {
     disponible: 'Disponible',
     peu_de_stock: 'Peu de stock',
@@ -69,18 +54,38 @@
         card.classList.add('prod-card-out');
       }
 
-      card.innerHTML =
-        '<div class="prod-img-box">' +
-          '<img src="' + produit.imagePrincipale + '" alt="' + produit.nom + '" loading="lazy">' +
-        '</div>' +
-        '<div class="prod-info">' +
-          '<span class="prod-badge prod-badge-' + produit.disponibilite + '">' +
-            '<span class="prod-badge-dot"></span>' + STATUS_LABELS[produit.disponibilite] +
-          '</span>' +
-          '<h3 class="prod-name">' + produit.nom + '</h3>' +
-          '<p class="prod-price">' + formatPrice(produit.prix) + '</p>' +
-        '</div>';
+      var imgBox = document.createElement('div');
+      imgBox.className = 'prod-img-box';
+      var img = document.createElement('img');
+      img.src = produit.imagePrincipale;
+      img.alt = produit.nom;
+      img.loading = 'lazy';
+      imgBox.appendChild(img);
 
+      var info = document.createElement('div');
+      info.className = 'prod-info';
+
+      var badge = document.createElement('span');
+      badge.className = 'prod-badge prod-badge-' + produit.disponibilite;
+      var dot = document.createElement('span');
+      dot.className = 'prod-badge-dot';
+      badge.appendChild(dot);
+      badge.appendChild(document.createTextNode(STATUS_LABELS[produit.disponibilite]));
+
+      var name = document.createElement('h3');
+      name.className = 'prod-name';
+      name.textContent = produit.nom;
+
+      var price = document.createElement('p');
+      price.className = 'prod-price';
+      price.textContent = formatPrice(produit.prix);
+
+      info.appendChild(badge);
+      info.appendChild(name);
+      info.appendChild(price);
+
+      card.appendChild(imgBox);
+      card.appendChild(info);
       grid.appendChild(card);
     });
 
@@ -109,8 +114,7 @@
   }
 
   /**
-   * Charge les produits. Pour l'instant : résout avec les données
-   * temporaires ci-dessus après un court délai simulant un chargement réseau.
+   * Charge les produits depuis la source partagée (products-data.js).
    * À REMPLACER plus tard par un appel réel via api.js une fois GAS branché,
    * en gardant la même signature (retourne une Promise d'un tableau de produits).
    */
@@ -118,7 +122,7 @@
     renderSkeletons(6);
     return new Promise(function (resolve) {
       setTimeout(function () {
-        resolve(PLACEHOLDER_PRODUCTS);
+        resolve(window.PLACEHOLDER_PRODUCTS || []);
       }, 500);
     });
   }
