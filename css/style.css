@@ -74,18 +74,19 @@ a { color: inherit; }
 
 .brand-logo-badge { text-decoration: none; display: flex; align-items: center; gap: 0.65rem; }
 
+/* NOUVEAU — préserve les proportions réelles du logo, quelle que soit sa forme */
 .logo-mark-wrap {
-  width: 44px;
   height: 44px;
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
-  position: relative;
 }
 
 .logo-real {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
+  height: 100%;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
   display: block;
 }
 
