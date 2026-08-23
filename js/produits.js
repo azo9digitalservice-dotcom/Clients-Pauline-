@@ -16,7 +16,7 @@
   var currentFilter = 'tous';
 
   function formatPrice(prix) {
-    return prix.toLocaleString('fr-FR') + ' FCFA';
+    return Number(prix).toLocaleString('fr-FR') + ' FCFA';
   }
 
   function renderSkeletons(count) {
@@ -114,17 +114,11 @@
   }
 
   /**
-   * Charge les produits depuis la source partagée (products-data.js).
-   * À REMPLACER plus tard par un appel réel via api.js une fois GAS branché,
-   * en gardant la même signature (retourne une Promise d'un tableau de produits).
+   * Charge les produits réels depuis le GAS Public (onglet Catalogue).
    */
   function loadProducts() {
     renderSkeletons(6);
-    return new Promise(function (resolve) {
-      setTimeout(function () {
-        resolve(window.PLACEHOLDER_PRODUCTS || []);
-      }, 500);
-    });
+    return window.PublicAPI.loadProducts();
   }
 
   function init() {
