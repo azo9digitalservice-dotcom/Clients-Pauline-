@@ -42,13 +42,9 @@
   var currentPhotoIndex = 0;
 
   function formatPrice(prix) {
-    return prix.toLocaleString('fr-FR') + ' FCFA';
+    return Number(prix).toLocaleString('fr-FR') + ' FCFA';
   }
 
-  /**
-   * Construit l'URL de base du site à partir de l'origine actuelle,
-   * pour ne jamais exposer/dépendre d'un domaine codé en dur.
-   */
   function getSiteBaseUrl() {
     var path = window.location.pathname;
     var dir = path.substring(0, path.lastIndexOf('/') + 1);
@@ -209,6 +205,12 @@
     detailSection.hidden = false;
   }
 
+  /**
+   * Charge le produit réel depuis le GAS Public. Distingue "introuvable"
+   * (identifiant absent/inexistant) d'une erreur générique de chargement,
+   * sans ajouter de nouvel écran non prévu : on réutilise l'état
+   * "introuvable" déjà présent, avec un message adapté.
+   */
   function init() {
     var params = new URLSearchParams(window.location.search);
     var id = params.get('id');
@@ -226,20 +228,24 @@
 
     showSkeleton();
 
-    setTimeout(function () {
-      var produits = window.PLACEHOLDER_PRODUCTS || [];
-      var produit = produits.filter(function (p) { return p.id === id; })[0];
-
-      if (!produit) {
-        showNotFound(
-          'Produit introuvable',
-          'Cette pièce n\'est peut-être plus disponible ou le lien n\'est plus valide.'
-        );
-        return;
-      }
-
-      renderProduct(produit);
-    }, 500);
+    window.PublicAPI.loadProductById(id)
+      .then(function (produit) {
+        renderProduct(produit);
+      })
+      .catch(function (err) {
+        console.error('[produit.js]', err);
+        if (err.code === 'PRODUCT_NOT_FOUND') {
+          showNotFound(
+            'Produit introuvable',
+            'Cette pièce n\'est peut-être plus disponible ou le lien n\'est plus valide.'
+          );
+        } else {
+          showNotFound(
+            'Chargement impossible',
+            'La fiche produit n\'a pas pu être chargée pour le moment. Réessayez dans quelques instants.'
+          );
+        }
+      });
   }
 
   mainImageBtn.addEventListener('click', function () {
