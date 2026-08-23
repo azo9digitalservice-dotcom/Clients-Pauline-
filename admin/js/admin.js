@@ -1,17 +1,4 @@
-
 (function () {
-
-  /**
-   * DONNÉES TEMPORAIRES — PLACEHOLDERS ADMIN
-   * Système séparé des données du site public (GAS Administration ≠ GAS Public).
-   * Seront remplacées par les vraies données une fois le GAS Administration branché.
-   */
-  var ADMIN_PLACEHOLDER_PRODUCTS = [
-    { id: 'SAC-001', nom: 'Sac à main Pauline', prix: 25000, categorie: 'sacs', disponibilite: 'disponible', visible: true, photos: ['../assets/produits/produit-01.jpg'], description: '' },
-    { id: 'SAC-002', nom: 'Sac cabas tissé', prix: 20000, categorie: 'sacs', disponibilite: 'peu_de_stock', visible: true, photos: ['../assets/produits/produit-02.jpg'], description: '' },
-    { id: 'CHA-001', nom: 'Escarpins bleu nuit', prix: 18000, categorie: 'chaussures', disponibilite: 'disponible', visible: true, photos: ['../assets/produits/produit-04.jpg'], description: '' },
-    { id: 'CHA-002', nom: 'Sandales tressées', prix: 12000, categorie: 'chaussures', disponibilite: 'rupture', visible: false, photos: ['../assets/produits/produit-01.jpg'], description: '' }
-  ];
 
   var STATUS_LABELS = { disponible: 'Disponible', peu_de_stock: 'Peu de stock', rupture: 'Rupture' };
   var CATEGORY_LABELS = { sacs: 'Sacs', chaussures: 'Chaussures' };
@@ -41,9 +28,34 @@
             '<a href="produits.html" class="admin-nav-link' + (current === 'produits.html' ? ' active' : '') + '">Produits</a>' +
             '<a href="produit.html" class="admin-nav-link' + (current === 'produit.html' ? ' active' : '') + '">Ajouter un produit</a>' +
             '<a href="../index.html" class="admin-nav-public-link" target="_blank" rel="noopener">Voir le site public &rarr;</a>' +
+            '<button type="button" id="adminLogoutBtn" class="admin-nav-public-link admin-nav-logout-btn">Se déconnecter</button>' +
           '</div>' +
         '</div>' +
       '</nav>';
+  }
+
+  function initLogoutButton_() {
+    var btn = document.getElementById('adminLogoutBtn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      btn.disabled = true;
+      AdminAPI.logout().finally(function () {
+        window.location.href = 'connexion.html';
+      });
+    });
+  }
+
+  /* ===================== PROTECTION DES PAGES ===================== */
+
+  function guardProtectedPage_() {
+    return AdminAPI.checkSession().then(function (valid) {
+      if (!valid) {
+        AdminAPI.clearToken();
+        window.location.href = 'connexion.html';
+        return false;
+      }
+      return true;
+    });
   }
 
   /* ===================== PAGE : CONNEXION ===================== */
@@ -51,6 +63,11 @@
   function initLoginPage() {
     var form = document.getElementById('adminLoginForm');
     if (!form) return;
+
+    // Si une session valide existe déjà, inutile de repasser par le formulaire.
+    AdminAPI.checkSession().then(function (valid) {
+      if (valid) window.location.href = 'index.html';
+    });
 
     var submitBtn = document.getElementById('adminLoginSubmit');
     var label = submitBtn.querySelector('.admin-btn-label');
@@ -60,19 +77,25 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
+      var identifiant = document.getElementById('loginIdentifiant').value.trim();
+      var password = document.getElementById('loginPassword').value;
+
       errorZone.hidden = true;
       submitBtn.disabled = true;
       label.textContent = 'Connexion...';
       spinner.hidden = false;
 
-      // Pas d'authentification réelle à cette étape — sera branchée au GAS Administration.
-      setTimeout(function () {
-        submitBtn.disabled = false;
-        label.textContent = 'Se connecter';
-        spinner.hidden = true;
-        errorZone.textContent = 'L\'authentification n\'est pas encore activée. Elle sera branchée au GAS Administration.';
-        errorZone.hidden = false;
-      }, 700);
+      AdminAPI.login(identifiant, password)
+        .then(function () {
+          window.location.href = 'index.html';
+        })
+        .catch(function (err) {
+          submitBtn.disabled = false;
+          label.textContent = 'Se connecter';
+          spinner.hidden = true;
+          errorZone.textContent = err.message || 'Identifiant ou mot de passe incorrect.';
+          errorZone.hidden = false;
+        });
     });
   }
 
@@ -82,32 +105,37 @@
     var statsGrid = document.getElementById('adminStatsGrid');
     if (!statsGrid) return;
 
-    var total = ADMIN_PLACEHOLDER_PRODUCTS.length;
-    var disponible = ADMIN_PLACEHOLDER_PRODUCTS.filter(function (p) { return p.disponibilite === 'disponible'; }).length;
-    var peuDeStock = ADMIN_PLACEHOLDER_PRODUCTS.filter(function (p) { return p.disponibilite === 'peu_de_stock'; }).length;
-    var rupture = ADMIN_PLACEHOLDER_PRODUCTS.filter(function (p) { return p.disponibilite === 'rupture'; }).length;
+    statsGrid.innerHTML = '<p class="admin-page-lead">Chargement des statistiques...</p>';
 
-    var stats = [
-      { label: 'Produits', value: total },
-      { label: 'Disponibles', value: disponible },
-      { label: 'Peu de stock', value: peuDeStock },
-      { label: 'Rupture', value: rupture }
-    ];
+    AdminAPI.getProducts()
+      .then(function (data) {
+        var products = data.products || [];
 
-    statsGrid.innerHTML = '';
-    stats.forEach(function (stat) {
-      var card = document.createElement('div');
-      card.className = 'admin-stat-card';
-      var value = document.createElement('p');
-      value.className = 'admin-stat-value';
-      value.textContent = stat.value;
-      var label = document.createElement('p');
-      label.className = 'admin-stat-label';
-      label.textContent = stat.label;
-      card.appendChild(value);
-      card.appendChild(label);
-      statsGrid.appendChild(card);
-    });
+        var stats = [
+          { label: 'Produits', value: products.length },
+          { label: 'Disponibles', value: products.filter(function (p) { return p.disponibilite === 'disponible'; }).length },
+          { label: 'Peu de stock', value: products.filter(function (p) { return p.disponibilite === 'peu_de_stock'; }).length },
+          { label: 'Rupture', value: products.filter(function (p) { return p.disponibilite === 'rupture'; }).length }
+        ];
+
+        statsGrid.innerHTML = '';
+        stats.forEach(function (stat) {
+          var card = document.createElement('div');
+          card.className = 'admin-stat-card';
+          var value = document.createElement('p');
+          value.className = 'admin-stat-value';
+          value.textContent = stat.value;
+          var label = document.createElement('p');
+          label.className = 'admin-stat-label';
+          label.textContent = stat.label;
+          card.appendChild(value);
+          card.appendChild(label);
+          statsGrid.appendChild(card);
+        });
+      })
+      .catch(function (err) {
+        statsGrid.innerHTML = '<p class="admin-page-lead">Impossible de charger les statistiques (' + err.message + ').</p>';
+      });
   }
 
   /* ===================== PAGE : MES PRODUITS ===================== */
@@ -120,6 +148,7 @@
     var searchInput = document.getElementById('adminSearchInput');
     var filterButtons = document.querySelectorAll('.admin-filters-container .filter-pill');
 
+    var allProducts = [];
     var currentFilter = 'tous';
     var currentSearch = '';
 
@@ -134,8 +163,8 @@
       return produit.nom.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
     }
 
-    function render() {
-      var filtered = ADMIN_PLACEHOLDER_PRODUCTS.filter(function (p) {
+    function renderList() {
+      var filtered = allProducts.filter(function (p) {
         return matchesFilter(p) && matchesSearch(p);
       });
 
@@ -152,25 +181,29 @@
 
       filtered.forEach(function (produit) {
         var card = document.createElement('div');
-        card.className = 'admin-product-card' + (produit.visible ? '' : ' is-masque');
+        card.className = 'admin-product-card' + (produit.publie ? '' : ' is-masque');
 
         var thumb = document.createElement('div');
         thumb.className = 'admin-product-thumb';
         var img = document.createElement('img');
-        img.src = produit.photos[0] || '';
+        img.src = produit.photoPrincipale || (produit.photos && produit.photos[0]) || '';
         img.alt = produit.nom;
         thumb.appendChild(img);
 
         var info = document.createElement('div');
         info.className = 'admin-product-main-info';
-        info.innerHTML =
-          '<p class="admin-product-name"></p>' +
-          '<p class="admin-product-meta"></p>' +
-          '<p class="admin-product-price"></p>';
-        info.querySelector('.admin-product-name').textContent = produit.nom;
-        info.querySelector('.admin-product-meta').textContent =
-          CATEGORY_LABELS[produit.categorie] + ' · ' + STATUS_LABELS[produit.disponibilite] + (produit.visible ? '' : ' · Masqué');
-        info.querySelector('.admin-product-price').textContent = formatPrice(produit.prix);
+        var nameEl = document.createElement('p');
+        nameEl.className = 'admin-product-name';
+        nameEl.textContent = produit.nom;
+        var metaEl = document.createElement('p');
+        metaEl.className = 'admin-product-meta';
+        metaEl.textContent = CATEGORY_LABELS[produit.categorie] + ' · ' + STATUS_LABELS[produit.disponibilite] + (produit.publie ? '' : ' · Masqué');
+        var priceEl = document.createElement('p');
+        priceEl.className = 'admin-product-price';
+        priceEl.textContent = formatPrice(produit.prix);
+        info.appendChild(nameEl);
+        info.appendChild(metaEl);
+        info.appendChild(priceEl);
 
         var actions = document.createElement('div');
         actions.className = 'admin-product-actions';
@@ -183,10 +216,13 @@
         var toggleBtn = document.createElement('button');
         toggleBtn.type = 'button';
         toggleBtn.className = 'btn-mini btn-mini-secondary';
-        toggleBtn.textContent = produit.visible ? 'Masquer' : 'Publier';
+        toggleBtn.textContent = produit.publie ? 'Masquer' : 'Publier';
         toggleBtn.addEventListener('click', function () {
-          produit.visible = !produit.visible;
-          render();
+          toggleBtn.disabled = true;
+          var action = produit.publie ? AdminAPI.unpublishProduct(produit.id) : AdminAPI.publishProduct(produit.id);
+          action
+            .then(function () { return loadProducts(); })
+            .catch(function (err) { window.alert('Erreur : ' + err.message); toggleBtn.disabled = false; });
         });
 
         var deleteBtn = document.createElement('button');
@@ -194,10 +230,11 @@
         deleteBtn.className = 'btn-mini btn-mini-danger';
         deleteBtn.textContent = 'Supprimer';
         deleteBtn.addEventListener('click', function () {
-          if (!window.confirm('Supprimer « ' + produit.nom + ' » ? Cette action est temporaire (données locales uniquement).')) return;
-          var index = ADMIN_PLACEHOLDER_PRODUCTS.indexOf(produit);
-          if (index !== -1) ADMIN_PLACEHOLDER_PRODUCTS.splice(index, 1);
-          render();
+          if (!window.confirm('Supprimer « ' + produit.nom + ' » ? Cette action est définitive.')) return;
+          deleteBtn.disabled = true;
+          AdminAPI.deleteProduct(produit.id)
+            .then(function () { return loadProducts(); })
+            .catch(function (err) { window.alert('Erreur : ' + err.message); deleteBtn.disabled = false; });
         });
 
         actions.appendChild(editLink);
@@ -211,20 +248,34 @@
       });
     }
 
+    function loadProducts() {
+      list.innerHTML = '<p class="admin-page-lead">Chargement des produits...</p>';
+      emptyState.hidden = true;
+
+      return AdminAPI.getProducts()
+        .then(function (data) {
+          allProducts = data.products || [];
+          renderList();
+        })
+        .catch(function (err) {
+          list.innerHTML = '<p class="admin-page-lead">Impossible de charger les produits (' + err.message + ').</p>';
+        });
+    }
+
     filterButtons.forEach(function (btn) {
       btn.addEventListener('click', function () {
         currentFilter = btn.dataset.filter;
         filterButtons.forEach(function (b) { b.classList.toggle('active', b === btn); });
-        render();
+        renderList();
       });
     });
 
     searchInput.addEventListener('input', function () {
       currentSearch = searchInput.value;
-      render();
+      renderList();
     });
 
-    render();
+    loadProducts();
   }
 
   /* ===================== PAGE : AJOUTER / MODIFIER UN PRODUIT ===================== */
@@ -235,24 +286,21 @@
 
     var params = new URLSearchParams(window.location.search);
     var editId = params.get('id');
-    var existingProduct = editId ? ADMIN_PLACEHOLDER_PRODUCTS.filter(function (p) { return p.id === editId; })[0] : null;
-
-    var photos = existingProduct ? existingProduct.photos.slice() : [];
 
     var titleEl = document.getElementById('adminProductFormTitle');
     var submitBtn = document.getElementById('adminProductSubmit');
     var feedback = document.getElementById('adminFormFeedback');
     var thumbsContainer = document.getElementById('photoThumbs');
     var photoInput = document.getElementById('photoInput');
+    var photoAddLabel = document.querySelector('.photo-add-btn span');
 
-    if (existingProduct) {
-      titleEl.textContent = 'Modifier « ' + existingProduct.nom + ' »';
-      submitBtn.textContent = 'Enregistrer les modifications';
-      document.getElementById('productNom').value = existingProduct.nom;
-      document.getElementById('productCategorie').value = existingProduct.categorie;
-      document.getElementById('productPrix').value = existingProduct.prix;
-      document.getElementById('productDisponibilite').value = existingProduct.disponibilite;
-      document.getElementById('productDescription').value = existingProduct.description || '';
+    var photos = [];
+    var isUploading = false;
+
+    function showFeedback(message, isError) {
+      feedback.hidden = false;
+      feedback.textContent = message;
+      feedback.style.color = isError ? '#8a3428' : '';
     }
 
     function renderThumbs() {
@@ -281,36 +329,113 @@
       });
     }
 
+    function setUploading(state) {
+      isUploading = state;
+      photoInput.disabled = state;
+      if (photoAddLabel) photoAddLabel.textContent = state ? 'Envoi...' : '+ Ajouter une photo';
+    }
+
     photoInput.addEventListener('change', function () {
       var file = photoInput.files[0];
       if (!file) return;
+
+      setUploading(true);
       var reader = new FileReader();
       reader.onload = function (e) {
-        photos.push(e.target.result);
-        renderThumbs();
+        var base64 = String(e.target.result).split(',')[1];
+        AdminAPI.uploadImage(base64)
+          .then(function (data) {
+            photos.push(data.url);
+            renderThumbs();
+          })
+          .catch(function (err) {
+            showFeedback('Échec de l\'envoi de la photo : ' + err.message, true);
+          })
+          .finally(function () {
+            setUploading(false);
+            photoInput.value = '';
+          });
       };
       reader.readAsDataURL(file);
-      photoInput.value = '';
     });
+
+    if (editId) {
+      titleEl.textContent = 'Chargement du produit...';
+      AdminAPI.getProduct(editId)
+        .then(function (data) {
+          var product = data.product;
+          titleEl.textContent = 'Modifier « ' + product.nom + ' »';
+          submitBtn.textContent = 'Enregistrer les modifications';
+          document.getElementById('productNom').value = product.nom;
+          document.getElementById('productCategorie').value = product.categorie;
+          document.getElementById('productPrix').value = product.prix;
+          document.getElementById('productDisponibilite').value = product.disponibilite;
+          document.getElementById('productDescription').value = product.description || '';
+          photos = product.photoPrincipale
+            ? [product.photoPrincipale].concat(product.photos || [])
+            : (product.photos || []).slice();
+          renderThumbs();
+        })
+        .catch(function (err) {
+          titleEl.textContent = 'Produit introuvable';
+          showFeedback('Impossible de charger ce produit : ' + err.message, true);
+        });
+    } else {
+      renderThumbs();
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      // Pas d'enregistrement réel à cette étape — sera branché au GAS Administration.
-      feedback.hidden = false;
-      feedback.textContent = existingProduct
-        ? 'Les modifications seront enregistrées une fois le GAS Administration branché.'
-        : 'Le produit sera publié une fois le GAS Administration branché.';
-    });
 
-    renderThumbs();
+      if (isUploading) {
+        showFeedback('Merci d\'attendre la fin de l\'envoi de la photo en cours.', true);
+        return;
+      }
+
+      var payload = {
+        nom: document.getElementById('productNom').value.trim(),
+        categorie: document.getElementById('productCategorie').value,
+        prix: Number(document.getElementById('productPrix').value),
+        disponibilite: document.getElementById('productDisponibilite').value,
+        description: document.getElementById('productDescription').value.trim(),
+        photos: photos
+      };
+
+      submitBtn.disabled = true;
+      var action = editId ? AdminAPI.updateProduct(editId, payload) : AdminAPI.createProduct(payload);
+
+      action
+        .then(function () {
+          showFeedback(editId ? 'Modifications enregistrées.' : 'Produit enregistré (non publié pour l\'instant).', false);
+          setTimeout(function () { window.location.href = 'produits.html'; }, 900);
+        })
+        .catch(function (err) {
+          showFeedback('Erreur : ' + err.message, true);
+          submitBtn.disabled = false;
+        });
+    });
   }
 
+  /* ===================== ORCHESTRATION ===================== */
+
   document.addEventListener('DOMContentLoaded', function () {
-    renderAdminNav();
-    initLoginPage();
-    initDashboardPage();
-    initProductsListPage();
-    initProductFormPage();
+    var isLoginPage = !!document.getElementById('adminLoginForm');
+
+    if (isLoginPage) {
+      initLoginPage();
+      return;
+    }
+
+    guardProtectedPage_().then(function (allowed) {
+      if (!allowed) return;
+
+      document.body.classList.remove('admin-guard-pending');
+      renderAdminNav();
+      initLogoutButton_();
+      initDashboardPage();
+      initProductsListPage();
+      initProductFormPage();
+    });
   });
 
 })();
