@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'tantie-pauline-v1';
+const CACHE_VERSION = 'tantie-pauline-v2'; // ← changé pour forcer la mise à jour
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 
@@ -71,15 +71,17 @@ self.addEventListener('activate', function (event) {
 /**
  * REQUÊTES
  *
- * 1. Ressources statiques :
- *    cache d'abord pour une boutique rapide.
+ * 1. Pages HTML (navigation) :
+ *    réseau d'abord, pour toujours refléter la dernière version déployée
+ *    pendant que le site continue d'évoluer. Cache utilisé uniquement
+ *    en secours si le réseau est indisponible.
  *
  * 2. GAS Public :
  *    réseau d'abord afin de récupérer les données fraîches.
  *    Si le réseau échoue, utilisation de la dernière réponse connue.
  *
- * 3. Autres requêtes :
- *    comportement réseau normal.
+ * 3. Autres ressources statiques (CSS, JS, images) :
+ *    cache d'abord pour une boutique rapide.
  */
 self.addEventListener('fetch', function (event) {
   var request = event.request;
@@ -89,6 +91,14 @@ self.addEventListener('fetch', function (event) {
   }
 
   var url = new URL(request.url);
+
+  /*
+   * Pages HTML : toujours vérifier le réseau en premier
+   */
+  if (request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('/')) {
+    event.respondWith(networkFirstStatic_(request));
+    return;
+  }
 
   /*
    * GAS Public
@@ -102,7 +112,7 @@ self.addEventListener('fetch', function (event) {
   }
 
   /*
-   * Ressources du site
+   * Autres ressources du site (CSS, JS, images)
    */
   if (url.origin === self.location.origin) {
     event.respondWith(cacheFirstStatic_(request));
@@ -113,8 +123,8 @@ self.addEventListener('fetch', function (event) {
 /**
  * CACHE FIRST
  *
- * Utilisé pour les fichiers statiques :
- * CSS, JS, HTML, logo, icônes, etc.
+ * Utilisé pour les ressources statiques stables :
+ * CSS, JS, logo, icônes, etc.
  */
 function cacheFirstStatic_(request) {
   return caches.match(request)
@@ -143,7 +153,30 @@ function cacheFirstStatic_(request) {
 }
 
 /**
- * NETWORK FIRST
+ * NETWORK FIRST (pages HTML)
+ *
+ * Toujours tenter le réseau en premier pour avoir la dernière version
+ * de la page ; en cas d'échec réseau, on retombe sur la copie en cache.
+ */
+function networkFirstStatic_(request) {
+  return fetch(request)
+    .then(function (networkResponse) {
+      if (networkResponse && networkResponse.ok) {
+        return caches.open(STATIC_CACHE)
+          .then(function (cache) {
+            cache.put(request, networkResponse.clone());
+            return networkResponse;
+          });
+      }
+      return caches.match(request);
+    })
+    .catch(function () {
+      return caches.match(request);
+    });
+}
+
+/**
+ * NETWORK FIRST (données GAS)
  *
  * Pour le GAS :
  * - on tente d'abord d'obtenir les données actuelles ;
