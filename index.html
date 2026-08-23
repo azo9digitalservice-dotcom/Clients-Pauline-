@@ -324,19 +324,5 @@
 
   <script src="js/components.js"></script>
 
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function (registration) {
-          console.log('Service Worker enregistré :', registration.scope);
-        })
-        .catch(function (error) {
-          console.error('Échec du Service Worker :', error);
-        });
-    });
-  }
-</script>
-
 </body>
 </html>
